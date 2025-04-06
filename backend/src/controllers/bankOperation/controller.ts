@@ -22,7 +22,7 @@ export async function getOperationsByAccount(req: Request, res: Response, next: 
 
 export async function addOperation(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        console.log(req.body); // הדפסת הנתונים כדי לבדוק את מה שאתה מקבל
+        console.log(req.body); 
         const { accountNumber, type, amount, date, interest, payments } = req.body;
 
         if (!accountNumber || !type || !amount || !date) {
