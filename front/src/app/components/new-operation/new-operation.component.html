@@ -1,0 +1,63 @@
+<div id="new-operation">
+  <label for="accountNumber">Account Number:</label>
+  <input
+    id="accountNumber"
+    [value]="accountNumber()"
+    (input)="accountNumber.set(getInputValue($event))"
+    placeholder="Enter Account Number"
+    type="text"
+  />
+
+  <label for="operationType">Operation Type:</label>
+  <select
+    id="operationType"
+    [value]="operationType()"
+    (change)="setOperationType($event)"
+  >
+    <option value="deposit">Deposit</option>
+    <option value="withdrawal">Withdrawal</option>
+    <option value="loan">Loan</option>
+  </select>
+
+  <div *ngIf="operationType() === 'deposit' || operationType() === 'withdrawal'">
+    <label for="amount">Amount:</label>
+    <input
+      id="amount"
+      [value]="amount()"
+      (input)="amount.set(+getInputValue($event))"
+      placeholder="Enter Amount"
+      type="number"
+    />
+  </div>
+
+  <div *ngIf="operationType() === 'loan'">
+    <label for="amount">Amount:</label>
+    <input
+      id="amount"
+      [value]="amount()"
+      (input)="amount.set(+getInputValue($event))"
+      placeholder="Enter Amount"
+      type="number"
+    />
+
+    <label for="payments">Payments:</label>
+    <input
+      id="payments"
+      [value]="payments()"
+      (input)="payments.set(+getInputValue($event))"
+      placeholder="Enter Payments"
+      type="number"
+    />
+
+    <label for="interest">Interest:</label>
+    <input
+      id="interest"
+      [value]="interest()"
+      (input)="interest.set(+getInputValue($event))"
+      placeholder="Enter Interest"
+      type="number"
+    />
+  </div>
+
+  <button (click)="saveOperation()">Save Operation</button>
+  </div>

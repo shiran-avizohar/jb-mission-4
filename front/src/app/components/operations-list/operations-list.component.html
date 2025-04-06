@@ -1,0 +1,24 @@
+<!-- src/app/components/operations-list/operations-list.component.html -->
+
+<div id="list">
+    <!-- Check if the list of operations is empty -->
+    <ng-container *ngIf="operations().length > 0; else loading">
+      <!-- Loop through the operations and display each one -->
+      <div *ngFor="let operation of operations(); trackBy: trackByOperationId">
+        <div class="operation-item">
+          <p><strong>{{ operation.type }}:</strong> {{ operation.amount }}₪</p> <!-- Removed uppercase pipe -->
+          <p>Date: {{ operation.date }}</p>
+          <div *ngIf="operation.type === 'loan'">
+            <p>Interest: {{ operation.interest }}%</p>
+            <p>Payments: {{ operation.payments }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  
+    <!-- Template to show when there are no operations -->
+    <ng-template #loading>
+      <p>Loading...</p>
+    </ng-template>
+  </div>
+  
