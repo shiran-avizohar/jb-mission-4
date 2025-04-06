@@ -1,26 +1,24 @@
-<div class="operations-container">
-    <!-- Input for bank account number -->
-    <input [(ngModel)]="accountNumber" placeholder="Enter bank account number" type="text" />
-  
-    <!-- Button to fetch operations -->
-    <button (click)="getOperations()">Get Operations</button>
-  
-    <!-- Display operations if available -->
-    <div *ngIf="operations.length > 0">
-      <div class="tabs">
-        <div class="tab" *ngFor="let operation of operations">
-          <div class="tab-content">
-            <p><strong>Type:</strong> {{ operation.type }}</p>
-            <p><strong>Amount:</strong> {{ operation.amount }}</p>
-            <p><strong>Date:</strong> {{ operation.date }}</p>
+<!-- src/app/components/operations-list/operations-list.component.html -->
+
+<div id="list">
+    <!-- Check if the list of operations is empty -->
+    <ng-container *ngIf="operations().length > 0; else loading">
+      <!-- Loop through the operations and display each one -->
+      <div *ngFor="let operation of operations(); trackBy: trackByOperationId">
+        <div class="operation-item">
+          <p><strong>{{ operation.type }}:</strong> {{ operation.amount }}₪</p> <!-- Removed uppercase pipe -->
+          <p>Date: {{ operation.date }}</p>
+          <div *ngIf="operation.type === 'loan'">
+            <p>Interest: {{ operation.interest }}%</p>
+            <p>Payments: {{ operation.payments }}</p>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   
-    <!-- If no operations found, display a message -->
-    <div *ngIf="operations.length === 0" class="no-operations">
-      No operations found for this account.
-    </div>
+    <!-- Template to show when there are no operations -->
+    <ng-template #loading>
+      <p>Loading...</p>
+    </ng-template>
   </div>
   

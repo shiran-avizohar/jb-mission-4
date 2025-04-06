@@ -1,1 +1,30 @@
-<p>new-operation works!</p>
+<div id="new-operation">
+    <label for="accountNumber">Account Number:</label>
+    <input id="accountNumber" [(ngModel)]="accountNumber()" placeholder="Enter Account Number" type="text"/>
+
+    <label for="operationType">Operation Type:</label>
+    <select id="operationType" [(ngModel)]="operationType()">
+        <option value="deposit">Deposit</option>
+        <option value="withdrawal">Withdrawal</option>
+        <option value="loan">Loan</option>
+    </select>
+
+    <!-- Conditional UI based on operation type -->
+    <div *ngIf="operationType() === 'deposit' || operationType() === 'withdrawal'">
+        <label for="amount">Amount:</label>
+        <input id="amount" [(ngModel)]="amount()" placeholder="Enter Amount" type="number"/>
+    </div>
+
+    <div *ngIf="operationType() === 'loan'">
+        <label for="amount">Amount:</label>
+        <input id="amount" [(ngModel)]="amount()" placeholder="Enter Amount" type="number"/>
+
+        <label for="payments">Payments:</label>
+        <input id="payments" [(ngModel)]="payments()" placeholder="Enter Payments" type="number"/>
+
+        <label for="interest">Interest:</label>
+        <input id="interest" [(ngModel)]="interest()" placeholder="Enter Interest" type="number"/>
+    </div>
+
+    <button (click)="saveOperation()">Save Operation</button>
+</div>

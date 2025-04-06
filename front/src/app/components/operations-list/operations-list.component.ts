@@ -1,28 +1,38 @@
-import { Component } from '@angular/core';
+// src/app/components/operations-list/operations-list.component.ts
+
+import { Component, OnInit, signal } from '@angular/core';
+import { BankOperationsService } from '../../services/bank-operations.service'; // Import service
+import { BankOperation } from '../../models/bankOperations/bank-operation.model';
 
 @Component({
   selector: 'app-operations-list',
   templateUrl: './operations-list.component.html',
   styleUrls: ['./operations-list.component.css']
 })
-export class OperationsListComponent {
-  accountNumber: string = '';  // To store the entered bank account number
-  operations: any[] = [];  // To store the operations fetched for the account
+export class OperationsListComponent implements OnInit {
+  operations = signal<BankOperation[]>([])  // Signal to store the list of operations
 
-  // Function to fetch operations for the entered account number
-  getOperations() {
-    if (this.accountNumber) {
-      // Simulating an API call by hardcoding data based on account number
-      if (this.accountNumber === '123456') {
-        this.operations = [
-          { type: 'Deposit', amount: 1000, date: '2023-04-06' },
-          { type: 'Withdrawal', amount: 200, date: '2023-04-05' }
-        ];
-      } else {
-        this.operations = [];  // No operations if the account number doesn't match
-      }
-    } else {
-      alert('Please enter a bank account number');  // Alert if no account number is entered
+  constructor(
+    public bankOperationsService: BankOperationsService
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchOperations()
+  }
+
+  // Fetch the operations by account number
+  async fetchOperations(): Promise<void> {
+    try {
+      const accountNumber = '12345'; // Example account number, you can replace this with dynamic input
+      const data = await this.bankOperationsService.getOperations(accountNumber);
+      this.operations.set(data);  // Update signal with the fetched data
+    } catch (e) {
+      alert('Error fetching operations: ' + e);
     }
+  }
+
+  // Add a new operation to the list
+  addOperation(newOperation: BankOperation): void {
+    this.operations.set([newOperation, ...this.operations()]);  // Add the new operation to the front
   }
 }

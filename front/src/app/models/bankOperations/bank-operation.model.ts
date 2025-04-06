@@ -1,9 +1,9 @@
 export interface BankOperation {
 accountNumber: string;
 type: 'withdrawal' | 'deposit' | 'loan';
-amount: number;
+amount: number | null;
 date: string;
-interest?: number;
-payments?: number;
+interest?: number| null;
+payments?: number| null;
 }
   

@@ -1,40 +1,66 @@
-.operations-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  input {
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 100%;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .tabs {
+/* כלליים עבור כל הרכיב */
+#list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: flex-start;
+    margin: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto; /* מיקום מרכזי */
   }
   
-  .tab {
-    background-color: #f1f1f1;
+  /* כל פריט ברשימה */
+  .operation-item {
+    background-color: #ffffff;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    width: 100%;
   }
   
-  .no-operations {
-    color: red;
+  /* כותרת של סוג הפעולה */
+  .operation-item p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  /* העיצוב עבור שדות הלוואה (אם קיימים) */
+  .operation-item .loan-details p {
+    font-size: 14px;
+    color: #4a90e2;
+    margin: 5px 0;
+  }
+  
+  /* עבור כפתור שמירה או שדות נוספים */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* כאשר לא נמצאו פעולות */
+  .loading {
+    font-size: 18px;
+    color: #888;
+  }
+  
+  /* פרטי טעינה */
+  #loading p {
+    text-align: center;
+    font-size: 18px;
     font-weight: bold;
+    color: #333;
   }
   

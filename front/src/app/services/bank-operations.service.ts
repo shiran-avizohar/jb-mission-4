@@ -2,7 +2,6 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 
 interface BankOperation {
@@ -15,7 +14,7 @@ interface BankOperation {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // השירות יהיה זמין לכל האפליקציה
 })
 export class BankOperationsService {
 
@@ -23,13 +22,13 @@ export class BankOperationsService {
 
   constructor(public http: HttpClient) { }
 
-  // Function to receive operations by account number
+  // פונקציה שמביאה את הפעולות לפי מספר חשבון
   async getOperations(accountNumber: string): Promise<BankOperation[]> {
     const observable = this.http.get<BankOperation[]>(`${this.apiUrl}/${accountNumber}`);
     return await firstValueFrom(observable);
   }
 
-  // Function to add a new action
+  // פונקציה להוספת פעולה חדשה לחשבון
   async addOperation(operation: BankOperation): Promise<BankOperation> {
     const observable = this.http.post<BankOperation>(this.apiUrl, operation);
     return await firstValueFrom(observable);

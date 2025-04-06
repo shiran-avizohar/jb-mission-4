@@ -1,0 +1,27 @@
+#new-operation {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  #new-operation label {
+    margin-bottom: 8px;
+  }
+  
+  #new-operation input, #new-operation select {
+    margin-bottom: 12px;
+    padding: 8px;
+  }
+  
+  #new-operation button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #new-operation button:hover {
+    background-color: #45a049;
+  }
+  
