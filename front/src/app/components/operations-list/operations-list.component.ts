@@ -1,16 +1,16 @@
-// src/app/components/operations-list/operations-list.component.ts
-
 import { Component, OnInit, signal } from '@angular/core';
-import { BankOperationsService } from '../../services/bank-operations.service'; // Import service
+import { NgIf, NgFor } from '@angular/common'; // ✅ Added
+import { BankOperationsService } from '../../services/bank-operations.service';
 import { BankOperation } from '../../models/bankOperations/bank-operation.model';
 
 @Component({
   selector: 'app-operations-list',
   templateUrl: './operations-list.component.html',
-  styleUrls: ['./operations-list.component.css']
+  styleUrls: ['./operations-list.component.css'],
+  imports: [NgIf, NgFor] // ✅ Added
 })
 export class OperationsListComponent implements OnInit {
-  operations = signal<BankOperation[]>([])  // Signal to store the list of operations
+  operations = signal<BankOperation[]>([])
 
   constructor(
     public bankOperationsService: BankOperationsService
@@ -20,19 +20,22 @@ export class OperationsListComponent implements OnInit {
     this.fetchOperations()
   }
 
-  // Fetch the operations by account number
   async fetchOperations(): Promise<void> {
     try {
-      const accountNumber = '12345'; // Example account number, you can replace this with dynamic input
+      const accountNumber = '12345';
       const data = await this.bankOperationsService.getOperations(accountNumber);
-      this.operations.set(data);  // Update signal with the fetched data
+      this.operations.set(data);
     } catch (e) {
       alert('Error fetching operations: ' + e);
     }
   }
 
-  // Add a new operation to the list
   addOperation(newOperation: BankOperation): void {
-    this.operations.set([newOperation, ...this.operations()]);  // Add the new operation to the front
+    this.operations.set([newOperation, ...this.operations()]);
   }
+
+  // ✅ Add this function:
+  trackByOperationId(index: number, operation: BankOperation): any {
+    return index;
+  }
 }

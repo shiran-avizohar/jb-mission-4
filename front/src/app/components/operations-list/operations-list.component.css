@@ -1,4 +1,3 @@
-/* כלליים עבור כל הרכיב */
 #list {
     display: flex;
     flex-direction: column;
@@ -9,10 +8,9 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    margin: 0 auto; /* מיקום מרכזי */
+    margin: 0 auto;
   }
   
-  /* כל פריט ברשימה */
   .operation-item {
     background-color: #ffffff;
     padding: 15px;
@@ -22,20 +20,17 @@
     width: 100%;
   }
   
-  /* כותרת של סוג הפעולה */
   .operation-item p {
     font-size: 16px;
     margin: 5px 0;
   }
   
-  /* העיצוב עבור שדות הלוואה (אם קיימים) */
   .operation-item .loan-details p {
     font-size: 14px;
     color: #4a90e2;
     margin: 5px 0;
   }
   
-  /* עבור כפתור שמירה או שדות נוספים */
   button {
     background-color: #4CAF50;
     color: white;
@@ -50,13 +45,11 @@
     background-color: #45a049;
   }
   
-  /* כאשר לא נמצאו פעולות */
   .loading {
     font-size: 18px;
     color: #888;
   }
   
-  /* פרטי טעינה */
   #loading p {
     text-align: center;
     font-size: 18px;
