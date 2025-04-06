@@ -26,10 +26,6 @@
     box-sizing: border-box;
   }
   
-  #new-operation input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  
   #new-operation button {
     background-color: #007bff;
     color: white;
