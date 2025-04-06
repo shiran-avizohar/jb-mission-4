@@ -19,9 +19,9 @@ interface BankOperation {
 })
 export class BankOperationsService {
 
-  private apiUrl = 'http://localhost:3001/operations'; // כתובת ה-API שלך
+  public apiUrl = 'http://localhost:3001/operations'; // כתובת ה-API שלך
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   // Function to receive operations by account number
   async getOperations(accountNumber: string): Promise<BankOperation[]> {
