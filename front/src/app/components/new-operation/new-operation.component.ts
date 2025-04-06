@@ -1,45 +1,38 @@
-// src/app/components/new-operation/new-operation.component.ts
-
-import { Component, OnInit, signal } from '@angular/core';
-import { BankOperationsService } from '../../services/bank-operations.service'; // Import service
-import { BankOperation } from '../../models/bankOperations/bank-operation.model';
+import { Component, signal } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-new-operation',
   templateUrl: './new-operation.component.html',
-  styleUrls: ['./new-operation.component.css']
+  styleUrls: ['./new-operation.component.css'],
+  imports: [NgIf]
 })
-export class NewOperationComponent implements OnInit {
-  accountNumber = '';  // Input for account number
-  selectedAction = 'withdrawal';  // Default action (withdrawal)
-  amount = 0;  // Amount input for withdrawal/deposit
-  payments = 0;  // Payments input for loan
-  interest = 0;  // Interest input for loan
-  operations = signal<BankOperation[]>([]);  // Signal to hold the list of operations
+export class NewOperationComponent {
+  accountNumber = signal<string>('');
+  operationType = signal<'deposit' | 'withdrawal' | 'loan'>('deposit');
+  amount = signal<number | undefined>(undefined);
+  payments = signal<number | undefined>(undefined);
+  interest = signal<number | undefined>(undefined);
 
-  constructor(
-    public bankOperationsService: BankOperationsService
-  ) {}
+  getInputValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
+  }
 
-  ngOnInit(): void {}
+  setOperationType(event: Event): void {
+    const value = this.getInputValue(event);
+    this.operationType.set(value as 'deposit' | 'withdrawal' | 'loan');
+  }
 
-  // Method to handle saving an operation
-  async saveOperation(): Promise<void> {
+  saveOperation() {
     const operation = {
-      accountNumber: this.accountNumber,
-      type: this.selectedAction,
-      amount: this.amount,
-      payments: this.selectedAction === 'loan' ? this.payments : undefined,
-      interest: this.selectedAction === 'loan' ? this.interest : undefined,
+      accountNumber: this.accountNumber(),
+      type: this.operationType(),
+      amount: this.amount(),
+      payments: this.payments(),
+      interest: this.interest()
     };
 
-    try {
-      // Send the operation data to the backend via the service
-      const result = await this.bankOperationsService.addOperation(operation);
-      this.operations.set([result, ...this.operations()]);  // Add the new operation to the list
-      alert('Operation saved successfully!');
-    } catch (e) {
-      alert('Error saving operation: ' + e);
-    }
-  }
+    console.log('Saving operation:', operation);
+    // Add API call here!
+  }
 }

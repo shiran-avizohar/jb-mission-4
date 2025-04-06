@@ -1,34 +1,63 @@
-<!-- src/app/components/new-operation/new-operation.component.html -->
+<div id="new-operation">
+  <label for="accountNumber">Account Number:</label>
+  <input
+    id="accountNumber"
+    [value]="accountNumber()"
+    (input)="accountNumber.set(getInputValue($event))"
+    placeholder="Enter Account Number"
+    type="text"
+  />
 
-<div id="action-container">
-    <div>
-      <label for="accountNumber">Account Number:</label>
-      <input id="accountNumber" [value]="accountNumber" (input)="accountNumber = $event.target.value" placeholder="Enter account number" />
-    </div>
-  
-    <div>
-      <label for="action">Choose Action:</label>
-      <select id="action" [value]="selectedAction" (change)="selectedAction = $event.target.value">
-        <option value="withdrawal">Withdrawal</option>
-        <option value="deposit">Deposit</option>
-        <option value="loan">Loan</option>
-      </select>
-    </div>
-  
-    <div>
-      <label for="amount">Amount:</label>
-      <input id="amount" [value]="amount" (input)="amount = $event.target.value" type="number" placeholder="Enter amount" />
-    </div>
-  
-    <!-- Dynamic UI for loan action -->
-    <div *ngIf="selectedAction === 'loan'">
-      <label for="payments">Payments:</label>
-      <input id="payments" [value]="payments" (input)="payments = $event.target.value" type="number" placeholder="Enter number of payments" />
-      
-      <label for="interest">Interest Rate:</label>
-      <input id="interest" [value]="interest" (input)="interest = $event.target.value" type="number" placeholder="Enter interest rate" />
-    </div>
-  
-    <button (click)="saveOperation()">Save Operation</button>
+  <label for="operationType">Operation Type:</label>
+  <select
+    id="operationType"
+    [value]="operationType()"
+    (change)="setOperationType($event)"
+  >
+    <option value="deposit">Deposit</option>
+    <option value="withdrawal">Withdrawal</option>
+    <option value="loan">Loan</option>
+  </select>
+
+  <div *ngIf="operationType() === 'deposit' || operationType() === 'withdrawal'">
+    <label for="amount">Amount:</label>
+    <input
+      id="amount"
+      [value]="amount()"
+      (input)="amount.set(+getInputValue($event))"
+      placeholder="Enter Amount"
+      type="number"
+    />
   </div>
-  
+
+  <div *ngIf="operationType() === 'loan'">
+    <label for="amount">Amount:</label>
+    <input
+      id="amount"
+      [value]="amount()"
+      (input)="amount.set(+getInputValue($event))"
+      placeholder="Enter Amount"
+      type="number"
+    />
+
+    <label for="payments">Payments:</label>
+    <input
+      id="payments"
+      [value]="payments()"
+      (input)="payments.set(+getInputValue($event))"
+      placeholder="Enter Payments"
+      type="number"
+    />
+
+    <label for="interest">Interest:</label>
+    <input
+      id="interest"
+      [value]="interest()"
+      (input)="interest.set(+getInputValue($event))"
+      placeholder="Enter Interest"
+      type="number"
+    />
+  </div>
+
+  <button (click)="saveOperation()">Save Operation</button>
+  </div>

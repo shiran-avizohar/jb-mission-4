@@ -4,5 +4,5 @@ import { NewOperationComponent } from './components/new-operation/new-operation.
 
 export const routes: Routes = [
   { path: '', component: OperationsListComponent },  // Default route
-  { path: 'new-operation', component: NewOperationComponent },  // Route for creating a new operation
+  { path: 'new-operation', component: NewOperationComponent },  // Route for creating a new operation
 ];
